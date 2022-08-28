@@ -48,8 +48,8 @@ struct Checker<'a> {
     in_f_string: bool,
 }
 
-impl Checker<'_> {
-    pub fn new(settings: &Settings) -> Checker {
+impl<'a> Checker<'a> {
+    pub fn new(settings: &'a Settings) -> Checker {
         Checker {
             settings,
             checks: vec![],
@@ -60,8 +60,8 @@ impl Checker<'_> {
     }
 }
 
-impl Visitor for Checker<'_> {
-    fn visit_stmt(&mut self, stmt: &Stmt) {
+impl<'a> Visitor<'a> for Checker<'a> {
+    fn visit_stmt(&mut self, stmt: &'a Stmt) {
         match &stmt.node {
             StmtKind::FunctionDef { name, .. } => {
                 self.push_scope(Scope {
@@ -247,7 +247,7 @@ impl Visitor for Checker<'_> {
         }
     }
 
-    fn visit_expr(&mut self, expr: &Expr) {
+    fn visit_expr(&mut self, expr: &'a Expr) {
         let initial = self.in_f_string;
         match &expr.node {
             ExprKind::Name { ctx, .. } => match ctx {
@@ -298,7 +298,7 @@ impl Visitor for Checker<'_> {
         };
     }
 
-    fn visit_arguments(&mut self, arguments: &Arguments) {
+    fn visit_arguments(&mut self, arguments: &'a Arguments) {
         if self
             .settings
             .select
@@ -336,7 +336,7 @@ impl Visitor for Checker<'_> {
         visitor::walk_arguments(self, arguments);
     }
 
-    fn visit_arg(&mut self, arg: &Arg) {
+    fn visit_arg(&mut self, arg: &'a Arg) {
         self.add_binding(Binding {
             kind: BindingKind::Argument,
             name: arg.node.arg.clone(),
