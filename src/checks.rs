@@ -5,6 +5,7 @@ use rustpython_parser::ast::Location;
 use serde::{Deserialize, Serialize};
 
 pub const DEFAULT_CHECK_CODES: [CheckCode; 45] = [
+    // pycodestyle
     CheckCode::E402,
     CheckCode::E501,
     CheckCode::E711,
@@ -19,6 +20,7 @@ pub const DEFAULT_CHECK_CODES: [CheckCode; 45] = [
     CheckCode::E743,
     CheckCode::E902,
     CheckCode::E999,
+    // pyflakes
     CheckCode::F401,
     CheckCode::F402,
     CheckCode::F403,
@@ -54,6 +56,7 @@ pub const DEFAULT_CHECK_CODES: [CheckCode; 45] = [
 ];
 
 pub const ALL_CHECK_CODES: [CheckCode; 48] = [
+    // pycodestyle
     CheckCode::E402,
     CheckCode::E501,
     CheckCode::E711,
@@ -68,6 +71,7 @@ pub const ALL_CHECK_CODES: [CheckCode; 48] = [
     CheckCode::E743,
     CheckCode::E902,
     CheckCode::E999,
+    // pyflakes
     CheckCode::F401,
     CheckCode::F402,
     CheckCode::F403,
@@ -96,17 +100,20 @@ pub const ALL_CHECK_CODES: [CheckCode; 48] = [
     CheckCode::F831,
     CheckCode::F841,
     CheckCode::F901,
-    CheckCode::M001,
-    CheckCode::R001,
-    CheckCode::R002,
     // flake8-builtins
     CheckCode::A001,
     CheckCode::A002,
     CheckCode::A003,
+    // Refactor
+    CheckCode::R001,
+    CheckCode::R002,
+    // Meta rules
+    CheckCode::M001,
 ];
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize, Hash, PartialOrd, Ord)]
 pub enum CheckCode {
+    // pycodestyle
     E402,
     E501,
     E711,
@@ -121,6 +128,7 @@ pub enum CheckCode {
     E743,
     E902,
     E999,
+    // pyflakes
     F401,
     F402,
     F403,
@@ -149,13 +157,15 @@ pub enum CheckCode {
     F831,
     F841,
     F901,
-    R001,
-    R002,
-    M001,
     // flake8-builtins
     A001,
     A002,
     A003,
+    // Refactor
+    R001,
+    R002,
+    // Meta rules
+    M001,
 }
 
 impl FromStr for CheckCode {

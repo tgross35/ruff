@@ -259,6 +259,9 @@ Beyond rule-set parity, ruff suffers from the following limitations vis-à-vis F
 | F831 | DuplicateArgumentName | Duplicate argument name in function definition |
 | F841 | UnusedVariable | Local variable `...` is assigned to but never used |
 | F901 | RaiseNotImplemented | `raise NotImplemented` should be `raise NotImplementedError` |
+| A001 | BuiltinVariableShadowing | Variable `...` is shadowing a python builtin |
+| A002 | BuiltinArgumentShadowing | Argument `...` is shadowing a python builtin |
+| A003 | BuiltinAttributeShadowing | class attribute `...` is shadowing a python builtin |
 | R001 | UselessObjectInheritance | Class `...` inherits from object |
 | R002 | NoAssertEquals | `assertEquals` is deprecated, use `assertEqual` instead |
 | M001 | UnusedNOQA | Unused `noqa` directive |
