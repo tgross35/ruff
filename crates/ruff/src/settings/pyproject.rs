@@ -71,6 +71,12 @@ pub fn settings_toml<P: AsRef<Path>>(path: P) -> Result<Option<PathBuf>> {
         return Ok(Some(pyproject_toml));
     }
 
+    // Check for `Cargo.toml`.
+    let cargo_toml = path.as_ref().join("Cargo.toml");
+    if cargo_toml.is_file() && ruff_enabled(&cargo_toml)? {
+        return Ok(Some(cargo_toml));
+    }
+
     Ok(None)
 }
 
@@ -132,6 +138,9 @@ pub fn load_options<P: AsRef<Path>>(path: P) -> Result<Options> {
             }
         }
         Ok(ruff)
+    } else if path.as_ref().ends_with("Cargo.toml") {
+        let cargo = parse_cargo_toml(&path)?;
+        todo!(); 
     } else {
         let ruff = parse_ruff_toml(path);
         if let Ok(ruff) = &ruff {
